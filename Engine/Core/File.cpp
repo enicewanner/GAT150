@@ -23,7 +23,7 @@ namespace nae
 	bool GetFileSize(const std::string& pathname, size_t& size)
 	{
 		if (!FileExists(pathname)) return false;
-		size = std::filesystem::file_size(pathname);
+		size = (size_t)std::filesystem::file_size(pathname);
 
 		return true;
 	}

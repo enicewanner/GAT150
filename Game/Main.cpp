@@ -3,6 +3,7 @@
 
 int main()
 {
+
 	std::cout << "Hello World" << std::endl;
 
 	nae::InitializeMemory();
@@ -15,7 +16,9 @@ int main()
 	nae::g_renderer.CreateWindow("Yes", 800, 800);
 
 	std::shared_ptr<nae::Texture> texture = std::make_shared<nae::Texture>();
-	texture->Create(nae::g_renderer, "alucard.bmp");
+	texture->Create(nae::g_renderer, "alucardt.bmp");
+
+
 
 	bool cont = true;
 	while (cont)
