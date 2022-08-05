@@ -1,5 +1,7 @@
 #pragma once
 #include <cstdint>
+#include <iostream>
+#include <string>
 
 namespace nae
 {
@@ -12,36 +14,15 @@ namespace nae
 		uint8_t b;
 		uint8_t a;
 
+		static const Color white;
+		static const Color black;
+		static const Color red;
+		static const Color green;
+		static const Color blue;
+
 		friend std::istream& operator >> (std::istream& stream, Color& color);
 	};
 
-	inline std::istream& operator >> (std::istream& stream, Color& color)
-	{
-		std::string line;
-		std::getline(stream, line);
+	std::istream& operator >> (std::istream& stream, Color& color);
 
-		std::string str;
-
-		str = line.substr(line.find("{") + 1, line.find(",") - (line.find("{") + 1));
-		color.r = (uint8_t)((std::stof(str)) * 255);
-
-		line = line.substr(line.find(",") + 1);
-
-		str = line.substr(0, line.find(",") + 1);
-		color.g = (uint8_t)((std::stof(str)) * 255);
-
-		//line = line.substr(line.find(",") + 1);
-
-		str = line.substr(line.find(",") + 1, line.find("}") - line.find(",") + 1);
-		color.b = (uint8_t)((std::stof(str)) * 255);
-
-
-		//color.r = 255;
-		//color.g = 255;
-		//color.b = 255;
-		color.a = 255;
-
-
-		return stream;
-	}
 }

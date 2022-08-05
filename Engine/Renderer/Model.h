@@ -16,7 +16,7 @@ namespace nae
 
 		Model(const std::string& filename);
 
-		void Draw(Renderer& renderer, const Vector2& position, float angle, float scale = 1);
+		void Draw(Renderer& renderer, const Vector2& position, float angle, const Vector2& scale = { 1, 1 });
 
 		void Load(const std::string& filename);
 		float CalculateRadius();

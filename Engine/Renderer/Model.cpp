@@ -1,5 +1,5 @@
 #include "Model.h"
-#include "../Core/File.h"
+#include "Core/File.h"
 #include <sstream>
 #include <iostream>
 
@@ -10,7 +10,7 @@ nae::Model::Model(const std::string& filename)
 }
 
 
-void nae::Model::Draw(Renderer& renderer, const Vector2& position, float angle, float scale)
+void nae::Model::Draw(Renderer& renderer, const Vector2& position, float angle, const Vector2& scale)
 {
 	//nae::Color color;
 	//color.r = nae::random(256);

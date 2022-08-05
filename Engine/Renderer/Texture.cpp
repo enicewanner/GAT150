@@ -38,7 +38,7 @@ namespace nae
 	nae::Vector2 Texture::GetSize() const
 	{
 		SDL_Point point;
-		if (SDL_QueryTexture(m_texture, nullptr, nullptr, &point.x, &point.y));
+		SDL_QueryTexture(m_texture, nullptr, nullptr, &point.x, &point.y);
 
 
 		return (float)point.x, (float)point.y;

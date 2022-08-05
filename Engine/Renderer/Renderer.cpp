@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include "Math/Transform.h"
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <SDL_image.h>
@@ -6,7 +7,6 @@
 namespace nae
 {
 	
-
 
 	void Renderer::Initialize()
 	{
@@ -37,18 +37,42 @@ namespace nae
 	{
 		SDL_RenderPresent(m_renderer);
 	}
-	void Renderer::Draw(std::shared_ptr<Texture> texture, const Vector2& position, float angle)
+	void Renderer::Draw(std::shared_ptr<Texture> texture, const Vector2& position, float angle, const Vector2& scale, const Vector2& registration)
 	{
 		Vector2 size = texture->GetSize();
+		size = size * scale;
+
+		Vector2 origin = size * registration;
+		Vector2 t_position = position - origin;
 
 		SDL_Rect dest;
-		dest.x = (int)position.x;
-		dest.y = (int)position.y;
+		dest.x = (int)t_position.x;
+		dest.y = (int)t_position.y;
 		dest.w = (int)size.x;
 		dest.h = (int)size.y;
 
-		SDL_RenderCopyEx(m_renderer, texture->m_texture, nullptr, &dest, angle, nullptr, SDL_FLIP_NONE);
+		SDL_Point center{ (int)origin.x, (int)origin.y};
 
+		SDL_RenderCopyEx(m_renderer, texture->m_texture, nullptr, &dest, angle, &center, SDL_FLIP_NONE);
+
+	}
+	void Renderer::Draw(std::shared_ptr<Texture> texture, const Transform& transform, const Vector2& registration)
+	{
+		Vector2 size = texture->GetSize();
+		size = size * transform.scale;
+
+		Vector2 origin = size * registration;
+		Vector2 t_position = transform.position - origin;
+
+		SDL_Rect dest;
+		dest.x = (int)t_position.x;
+		dest.y = (int)t_position.y;
+		dest.w = (int)size.x;
+		dest.h = (int)size.y;
+
+		SDL_Point center{ (int)origin.x, origin.y };
+
+		SDL_RenderCopyEx(m_renderer, texture->m_texture, nullptr, &dest, transform.rotation, &center, SDL_FLIP_NONE);
 	}
 	void Renderer::DrawLine(float x1, float y1, float x2, float y2)
 	{
