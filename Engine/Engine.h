@@ -16,6 +16,11 @@
 #include "Renderer/Renderer.h"
 #include "Renderer/Text.h"
 
+#include "Components/PlayerComponent.h"
+#include "Components/SpriteComponent.h"
+#include "Component/AudioComponent.h"
+#include "Component/PhysicsComponent.h"
+
 #include <memory>
 namespace nae
 {
