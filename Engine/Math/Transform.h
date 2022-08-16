@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector2.h"
 #include "Matrix2x2.h"
+#include "Matrix3x3.h"
 #include "MathUtils.h"
 
 namespace nae
@@ -12,12 +13,34 @@ namespace nae
 		float rotation;
 		Vector2 scale{1,1};
 
-		operator Matrix2x2 () const
-		{
-			Matrix2x2 mxs = Matrix2x2::CreateScale(scale);
-			Matrix2x2 mxr = Matrix2x2::CreateRotation(Math::DegToRad(rotation));
+		Matrix3x3 matrix;
 
-			return { mxs * mxr };
+		void Update()
+		{
+			Matrix3x3 mxs = Matrix3x3::CreateScale(scale);
+			Matrix3x3 mxr = Matrix3x3::CreateRotation(Math::DegToRad(rotation));
+			Matrix3x3 mxt = Matrix3x3::CreateTranslation(position);
+
+			matrix = { mxt * mxr * mxs };
+		}
+
+		void Update(const Matrix3x3& parent)
+		{
+			Matrix3x3 mxs = Matrix3x3::CreateScale(scale);
+			Matrix3x3 mxr = Matrix3x3::CreateRotation(Math::DegToRad(rotation));
+			Matrix3x3 mxt = Matrix3x3::CreateTranslation(position);
+
+			matrix = { mxt * mxr * mxs };
+			matrix = parent * matrix;
+		}
+
+		operator Matrix3x3 () const
+		{
+			Matrix3x3 mxs = Matrix3x3::CreateScale(scale);
+			Matrix3x3 mxr = Matrix3x3::CreateRotation(Math::DegToRad(rotation));
+			Matrix3x3 mxt = Matrix3x3::CreateTranslation(position);
+
+			return { mxt * mxr * mxs};
 		}
 
 

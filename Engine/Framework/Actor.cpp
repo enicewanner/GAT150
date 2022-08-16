@@ -9,6 +9,15 @@ namespace nae
 		{
 			component->Update();
 		}
+		for (auto& child : m_children)
+		{
+			child->Update();
+		}
+
+
+		if (m_parent) m_transform.Update(m_parent->m_transform.matrix);
+
+		m_transform.Update();
 	}
 	void Actor::Draw(Renderer& renderer)
 	{
@@ -19,8 +28,19 @@ namespace nae
 			{
 				renderComponent->Draw(renderer);
 			}
+			for (auto& child : m_children)
+			{
+				child->Draw(renderer);
+			}
 			//component->Update();
 		}
+	}
+
+	void Actor::AddChild(std::unique_ptr<Actor> child)
+	{
+		child->m_parent = this;
+		child->m_scene = this->m_scene;
+		m_children.push_back(std::move(child));
 	}
 
 	void Actor::AddComponent(std::unique_ptr<Component> component)

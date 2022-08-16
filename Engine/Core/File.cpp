@@ -1,4 +1,5 @@
 #include "File.h"
+#include "Logger.h"
 #include <filesystem>
 #include <fstream>
 
@@ -30,8 +31,11 @@ namespace nae
 
 	bool ReadFile(const std::string& pathname, std::string& buffer)
 	{
-		if (!FileExists(pathname)) return false;
-
+		if (!FileExists(pathname))//return false;
+		{
+			LOG("Error could not read file file \s", pathname.c_str());
+			return false;
+		}
 		//Get file size, set buffer size
 		size_t size;
 		GetFileSize(pathname, size);

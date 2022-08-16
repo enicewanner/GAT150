@@ -15,11 +15,16 @@
 
 #include "Renderer/Renderer.h"
 #include "Renderer/Text.h"
+#include "Renderer/Model.h" 
+
+#include "Resource/ResourceManager.h"
 
 #include "Components/PlayerComponent.h"
 #include "Components/SpriteComponent.h"
-#include "Component/AudioComponent.h"
-#include "Component/PhysicsComponent.h"
+#include "Components/AudioComponent.h"
+#include "Components/PhysicsComponent.h"
+#include "Components/ModelComponent.h"
+
 
 #include <memory>
 namespace nae
@@ -28,4 +33,5 @@ namespace nae
 	extern Renderer g_renderer;
 	extern Time g_time;
 	extern AudioSystem g_audioSystem;
+	extern ResourceManager g_resources;
 }

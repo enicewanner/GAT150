@@ -29,15 +29,28 @@ int main()
 	nae::InitializeMemory();
 	nae::SetFilePath("../Assets");
 
+	//intialize sys
 	nae::g_audioSystem.Initialize();
 	nae::g_renderer.Initialize();
 	nae::g_inputSystem.Initialize();
+	nae::g_resources.Initialize();
 
 	nae::g_renderer.CreateWindow("Yes", 800, 800);
 
-	std::shared_ptr<nae::Texture> texture = std::make_shared<nae::Texture>();
-	texture->Create(nae::g_renderer, "spip.bmp");
+	//load assets
+	//std::shared_ptr<nae::Texture> texture = std::make_shared<nae::Texture>();
+	//texture->Create(nae::g_renderer, "spip.bmp");
+	//
+
+	std::shared_ptr<nae::Texture> texture = nae::g_resources.Get<nae::Texture>("spip.bmp");
+
 	nae::g_audioSystem.AddAudio("laser", "Laser_Shoot.wav");
+
+	/*std::shared_ptr<nae::Model> model = std::make_shared<nae::Model>();
+	model->Create("spip.bmp");*/
+
+	std::shared_ptr<nae::Model> model = nae::g_resources.Get<nae::Model>("spip.bmp");
+	std::shared_ptr<nae::Model> model2 = nae::g_resources.Get<nae::Model>("spip.bmp");
 
 	//create actors
 	nae::Scene scene;
@@ -49,12 +62,27 @@ int main()
 	actor->AddComponent(std::move(pcomponent));
 	std::unique_ptr<nae::PhysicsComponent> phcomponent = std::make_unique<nae::PhysicsComponent>();
 	actor->AddComponent(std::move(phcomponent));
-	std::unique_ptr<nae::SpriteComponent> scomponent = std::make_unique<nae::SpriteComponent>();
+	/*std::unique_ptr<nae::SpriteComponent> scomponent = std::make_unique<nae::SpriteComponent>();
 	scomponent->m_texture = texture;
-	actor->AddComponent(std::move(scomponent));
+	actor->AddComponent(std::move(scomponent));*/
+
+	std::unique_ptr<nae::ModelComponent> mcomponent = std::make_unique<nae::ModelComponent>();
+	mcomponent->m_texture = texture;
+	actor->AddComponent(std::move(mcomponent));
+
 	std::unique_ptr<nae::AudioComponent> acomponent = std::make_unique<nae::AudioComponent>();
 	acomponent->m_soundname = "laser";
 	actor->AddComponent(std::move(acomponent));
+
+	//child
+	nae::Transform transformc{ nae::Vector2 {40, 30}, 0, {1, 1} };
+	std::unique_ptr<nae::Actor> child = std::make_unique<nae::Actor>(transformc);
+	std::unique_ptr<nae::ModelComponent> mcomponentc = std::make_unique<nae::ModelComponent>();
+	mcomponentc->m_texture = texture;
+	child->AddComponent(std::move(mcomponentc));
+
+	actor->AddChild(std::move(child));
+
 	scene.Add(std::move(actor));
 
 	float angle = 0;

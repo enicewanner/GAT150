@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Resource/Resource.h"
 #include <iostream>
 
 
@@ -8,7 +9,7 @@ struct _TTF_Font;
 
 namespace nae
 {
-	class Font
+	class Font : public Resource
 	{
 	public:
 		friend class Text;
@@ -17,6 +18,7 @@ namespace nae
 		Font(const std::string& filename, int fontSize);
 		~Font();
 
+		bool Create(const std::string& filename, void* data) override { return false; }
 		void Load(const std::string& filename, int fontSize);
 
 	private:

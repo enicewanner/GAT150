@@ -1,10 +1,11 @@
 #pragma once
 #include "Renderer.h"
+#include "Resource/Resource.h"
 #include <vector>
 
 namespace nae
 {
-	class Model
+	class Model : public Resource
 	{
 	public:
 		Model() = default;
@@ -16,9 +17,12 @@ namespace nae
 
 		Model(const std::string& filename);
 
-		void Draw(Renderer& renderer, const Vector2& position, float angle, const Vector2& scale = { 1, 1 });
+		bool Create(const std::string& filename, void* data) override;
 
-		void Load(const std::string& filename);
+		void Draw(Renderer& renderer, const Vector2& position, float angle, const Vector2& scale = { 1, 1 });
+		void Draw(Renderer& renderer, const Transform& transform);
+
+		bool Load(const std::string& filename);
 		float CalculateRadius();
 
 
