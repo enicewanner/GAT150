@@ -1,5 +1,9 @@
 #pragma once
-#include "../Math/Transform.h"
+#include "Math/Transform.h"
+#include "Serialization/Serializable.h"
+
+#define REGISTER_CLASS(class) Factory::Instace().Register<class(#class)
+
 
 namespace nae
 {

@@ -23,6 +23,8 @@ namespace nae
 		float& operator [] (size_t index) { return (&x) [index]; }
 
 
+
+
 	
 		Vector2 operator + (const Vector2& v) const { return Vector2{ this->x + v.x, this->y + v.y }; }
 		Vector2 operator - (const Vector2& v) const { return Vector2{ this->x - v.x, this->y - v.y }; }
@@ -77,6 +79,7 @@ namespace nae
 	};
 
 	std::istream& operator >> (std::istream& stream, Vector2& v);
+	std::ostream& operator << (std::ostream& stream, const Vector2& v);
 
 	inline float Vector2::LengthSqr() 
 	{ 

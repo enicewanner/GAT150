@@ -16,9 +16,14 @@ namespace nae
 		Vector2 m_velocity;
 		Vector2 m_acceleration;
 
-		float m_damping = 0.99;
+		float damping = 0.99;
+
+		// Inherited via Component
+		virtual bool Read(const rapidjson::Value& value) override;
+		virtual bool Write(const rapidjson::Value& value) const override;
 
 	private:
+		
 	};
 }
 

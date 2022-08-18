@@ -58,14 +58,18 @@ namespace nae
 		}
 	}
 
-	/*void PlayerComponent::InputInitialize()
+	bool PlayerComponent::Write(const rapidjson::Value& value) const
 	{
-		m_inputsystem.Initialize();
+		return false;
 	}
 
-	void PlayerComponent::InputShutdown()
+	bool PlayerComponent::Read(const rapidjson::Value& value)
 	{
-		m_inputsystem.Shutdown();
-	}*/
+		READ_DATA(value, speed);
+
+		return true;
+	}
+
+
 
 }

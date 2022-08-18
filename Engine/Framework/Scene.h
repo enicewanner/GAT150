@@ -10,7 +10,7 @@ namespace nae
 	class Renderer;
 	class Game;
 
-	class Scene
+	class Scene : public ISerializable
 	{
 	public:
 		Scene() = default;
@@ -22,6 +22,10 @@ namespace nae
 
 		void Add(std::unique_ptr<Actor> actor);
 		
+		// Inherited via ISerializable
+		virtual bool Write(const rapidjson::Value& value) const override;
+		virtual bool Read(const rapidjson::Value& value) override;
+		
 		template<typename T>
 		T* GetActor();
 
@@ -30,6 +34,8 @@ namespace nae
 	private:
 		Game* m_game;
 		std::list<std::unique_ptr<Actor>> m_actors;
+
+
 
 	};
 	template<typename T>

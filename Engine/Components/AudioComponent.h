@@ -20,5 +20,9 @@ namespace nae
 		float m_volume = 1;
 		float m_pitch = 1;
 	private:
+
+		// Inherited via Component
+		virtual bool Write(const rapidjson::Value& value) const override;
+		virtual bool Read(const rapidjson::Value& value) override;
 	};
 }

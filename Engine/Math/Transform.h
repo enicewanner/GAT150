@@ -1,4 +1,6 @@
 #pragma once
+#include "Serialization/Serializable.h"
+
 #include "Vector2.h"
 #include "Matrix2x2.h"
 #include "Matrix3x3.h"
@@ -6,7 +8,7 @@
 
 namespace nae
 {
-	struct Transform
+	struct Transform : public ISerializable
 	{
 
 		Vector2 position;
@@ -15,6 +17,12 @@ namespace nae
 
 		Matrix3x3 matrix;
 
+
+		// Inherited via ISerializable
+		virtual bool Write(const rapidjson::Value& value) const override;
+
+		virtual bool Read(const rapidjson::Value& value) override;
+		
 		void Update()
 		{
 			Matrix3x3 mxs = Matrix3x3::CreateScale(scale);
@@ -42,6 +50,7 @@ namespace nae
 
 			return { mxt * mxr * mxs};
 		}
+
 
 
 	};

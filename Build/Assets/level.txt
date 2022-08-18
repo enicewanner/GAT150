@@ -19,6 +19,8 @@
             {
                "type":"PlayerComponent",
                "speed":200
+               "type":"ModelComponent",
+               "model_name":"player.txt"
             }
          ]
       }
