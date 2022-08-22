@@ -1,5 +1,6 @@
 #include "Renderer.h"
 #include "Math/Transform.h"
+#include "Math/Rect.h"
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <SDL_image.h>
@@ -70,10 +71,37 @@ namespace nae
 		dest.w = (int)size.x;
 		dest.h = (int)size.y;
 
-		SDL_Point center{ (int)origin.x, origin.y };
+		SDL_Point center{ (int)origin.x, (int)origin.y };
 
 		SDL_RenderCopyEx(m_renderer, texture->m_texture, nullptr, &dest, transform.rotation, &center, SDL_FLIP_NONE);
 	}
+		
+	void Renderer::Draw(std::shared_ptr<Texture> texture, const Rect& source, const Transform& transform, const Vector2& registration)
+	{
+		Vector2 size = texture->GetSize();
+		size = size * transform.scale;
+
+		Vector2 origin = size * registration;
+		Vector2 t_position = transform.position - origin;
+
+		SDL_Rect dest;
+		dest.x = (int)t_position.x;
+		dest.y = (int)t_position.y;
+		dest.w = (int)size.x;
+		dest.h = (int)size.y;
+
+		SDL_Rect src;
+		src.x = source.x;
+		src.y = source.y;
+		src.w = source.w;
+		src.h = source.h;
+
+		SDL_Point center{ (int)origin.x, (int)origin.y };
+
+		SDL_RenderCopyEx(m_renderer, texture->m_texture, &src, &dest, transform.rotation, &center, SDL_FLIP_NONE);
+	}
+	
+
 	void Renderer::DrawLine(float x1, float y1, float x2, float y2)
 	{
 		SDL_SetRenderDrawColor(m_renderer, 255, 255, 255, 255);

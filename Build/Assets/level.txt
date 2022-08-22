@@ -19,8 +19,19 @@
             {
                "type":"PlayerComponent",
                "speed":200
-               "type":"ModelComponent",
-               "model_name":"player.txt"
+            },
+            {
+               "type":"PhyicsComponent",
+               "damping":0.99
+            },
+            {
+                "type":"SpriteAnimComponent",
+                "texture_name":"gothic-hero-idle.png",
+                "fps":12,
+                "num_columns":4,
+                "num_rows":1,
+                "start_frame":1,
+                "end_frame":4
             }
          ]
       }

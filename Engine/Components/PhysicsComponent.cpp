@@ -19,6 +19,11 @@ namespace nae
 
 	bool PhysicsComponent::Read(const rapidjson::Value& value)
 	{
+		READ_DATA(value, damping);
+		READ_DATA(value, m_velocity);
+		READ_DATA(value, m_acceleration);
+
+
 		return true;
 	}
 

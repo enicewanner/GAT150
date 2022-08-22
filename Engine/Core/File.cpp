@@ -33,7 +33,7 @@ namespace nae
 	{
 		if (!FileExists(pathname))//return false;
 		{
-			LOG("Error could not read file file \s", pathname.c_str());
+			LOG("Error could not read file file %s", pathname.c_str());
 			return false;
 		}
 		//Get file size, set buffer size

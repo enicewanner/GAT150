@@ -41,8 +41,8 @@ namespace nae
 			component->ApplyForce(force);
 
 			//gravitational force
-			force = (Vector2{ 400,400 } - m_owner->m_transform.position).Normalized() * 100.0f;
-			component->ApplyForce(force);
+			/*force = (Vector2{ 400,400 } - m_owner->m_transform.position).Normalized() * 100.0f;
+			component->ApplyForce(force);*/
 		}
 
 		m_owner->m_transform.position += direction * 300 * g_time.deltaTime;

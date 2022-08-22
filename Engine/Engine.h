@@ -6,6 +6,8 @@
 
 #include "Framework/Scene.h"
 #include "Framework/Game.h"
+#include "Framework/Singleton.h"
+#include "Framework/GameObject.h"
 
 #include "Serialization/Json.h"
 
@@ -23,11 +25,14 @@
 
 #include "Resource/ResourceManager.h"
 
+#include "Physics\PhysicsSystem.h"
+
 #include "Components/PlayerComponent.h"
 #include "Components/SpriteComponent.h"
 #include "Components/AudioComponent.h"
 #include "Components/PhysicsComponent.h"
 #include "Components/ModelComponent.h"
+#include "Components/SpriteAnimComponent.h"
 
 
 #include <memory>
@@ -38,4 +43,11 @@ namespace nae
 	extern Time g_time;
 	extern AudioSystem g_audioSystem;
 	extern ResourceManager g_resources;
+	extern PhysicsSystem g_physicsSystem;
+
+	class Engine : public Singleton<Engine>
+	{
+	public:
+		void Register();
+	};
 }

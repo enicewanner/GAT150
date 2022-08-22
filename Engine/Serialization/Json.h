@@ -2,17 +2,17 @@
 #include "rapidjson/document.h"
 #include <string>
 
-#define READ_DATA(value, data) nae::json::Get(value, #data, data);
+#define READ_DATA(value, data) nae::json::Get(value, #data, data)
+
+
 
 
 namespace nae
 {
 	struct Vector2;
 	struct Color;
-}
+	struct Rect;
 
-namespace nae
-{
 	namespace json
 {
 	bool Load(const std::string& filename, rapidjson::Document& document);
@@ -23,6 +23,7 @@ namespace nae
 	bool Get(const rapidjson::Value& value, const std::string& name, std::string& data);
 	bool Get(const rapidjson::Value& value, const std::string& name, Vector2& data);
 	bool Get(const rapidjson::Value& value, const std::string& name, Color& data);
+	bool Get(const rapidjson::Value& value, const std::string& name, Rect& data);
 
 }
 }

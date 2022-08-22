@@ -16,7 +16,7 @@ bool nae::Model::Create(const std::string& filename, void* data)
 {
 	if (!Load(filename))
 	{
-		LOG("Error couldn't read file \s", filename.c_str());
+		LOG("Error couldn't read file %s", filename.c_str());
 		return false;
 	}
 
@@ -61,7 +61,7 @@ bool nae::Model::Load(const std::string& filename)
 
 	if (!nae::ReadFile(filename, buffer))
 	{
-		LOG("Error could not read file \s", filename.c_str());
+		LOG("Error could not read file %s", filename.c_str());
 		return false;
 	}
 	nae::ReadFile(filename, buffer);

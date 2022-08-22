@@ -15,16 +15,17 @@ int main()
 	nae::g_renderer.Initialize();
 	nae::g_inputSystem.Initialize();
 	nae::g_resources.Initialize();
+	nae::g_physicsSystem.Initialize();
 
 	nae::g_renderer.CreateWindow("Yes", 800, 800);
-	nae::g_renderer.SetClearColor(nae::g_renderer.m_clearColor);
+	
 
 	//load assets
 	//std::shared_ptr<nae::Texture> texture = std::make_shared<nae::Texture>();
 	//texture->Create(nae::g_renderer, "spip.bmp");
 	//
 
-	std::shared_ptr<nae::Texture> texture = nae::g_resources.Get<nae::Texture>("spip.bmp");
+	//std::shared_ptr<nae::Texture> texture = nae::g_resources.Get<nae::Texture>("spip.bmp");
 
 
 	//create actors
@@ -48,8 +49,9 @@ int main()
 		nae::g_time.Tick();
 		nae::g_audioSystem.Update();
 		nae::g_inputSystem.Update();
+		nae::g_physicsSystem.Update();
 
-		//if (nae::g_inputSystem.GetKeyDown(nae::key_escape)) cont = false;
+		if (nae::g_inputSystem.GetKeyDown(nae::key_escape)) cont = false;
 
 		//angle += 360.0f * nae::g_time.deltaTime;
 		scene.Update();
@@ -58,11 +60,13 @@ int main()
 		nae::g_renderer.BeginFrame();
 		//nae::g_renderer.Draw(texture, { 400, 400 }, angle, {1, 1}, {0.5f, 1.0f});
 		scene.Draw(nae::g_renderer);
+		//std::cout << "running" << std::endl;
 		nae::g_renderer.EndFrame();
 	}
 
 	nae::g_audioSystem.Shutdown();
 	nae::g_renderer.Shutdown();
 	nae::g_inputSystem.Shutdown();
+	nae::g_physicsSystem.Shutdown();
 
 }
