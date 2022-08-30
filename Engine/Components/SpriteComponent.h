@@ -10,6 +10,8 @@ namespace nae
 	class SpriteComponent : public RenderComponent
 	{
 	public:
+		CLASS_DECLARATION(SpriteComponent)
+
 		virtual void Update() override;
 		virtual void Draw(Renderer& renderer) override;
 
@@ -17,7 +19,6 @@ namespace nae
 		virtual bool Read(const rapidjson::Value& value) override;
 
 	public:
-		Rect source;
 		std::shared_ptr<Texture> m_texture;
 
 		// Inherited via RenderComponent

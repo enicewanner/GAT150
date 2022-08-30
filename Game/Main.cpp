@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Engine.h"
+#include "TheGame.h"
 
 
 
@@ -16,31 +17,16 @@ int main()
 	nae::g_inputSystem.Initialize();
 	nae::g_resources.Initialize();
 	nae::g_physicsSystem.Initialize();
+	nae::g_eventManager.Initialize();
+
+	nae::Engine::Instance().Register();
 
 	nae::g_renderer.CreateWindow("Yes", 800, 800);
-	
 
-	//load assets
-	//std::shared_ptr<nae::Texture> texture = std::make_shared<nae::Texture>();
-	//texture->Create(nae::g_renderer, "spip.bmp");
-	//
+	//create game
 
-	//std::shared_ptr<nae::Texture> texture = nae::g_resources.Get<nae::Texture>("spip.bmp");
-
-
-	//create actors
-	nae::Scene scene;
-
-
-	rapidjson::Document document;
-	bool success = nae::json::Load("level.txt", document);
-
-
-	scene.Read(document);
-	
-
-	float angle = 0;
-
+	std::unique_ptr<TheGame> game = std::make_unique<TheGame>();
+	game->Initialize();
 
 
 	bool cont = true;
@@ -50,23 +36,28 @@ int main()
 		nae::g_audioSystem.Update();
 		nae::g_inputSystem.Update();
 		nae::g_physicsSystem.Update();
+		nae::g_eventManager.Update();
 
 		if (nae::g_inputSystem.GetKeyDown(nae::key_escape)) cont = false;
 
 		//angle += 360.0f * nae::g_time.deltaTime;
-		scene.Update();
+		game->Update();
 
 
 		nae::g_renderer.BeginFrame();
 		//nae::g_renderer.Draw(texture, { 400, 400 }, angle, {1, 1}, {0.5f, 1.0f});
-		scene.Draw(nae::g_renderer);
+		game->Draw(nae::g_renderer);
 		//std::cout << "running" << std::endl;
 		nae::g_renderer.EndFrame();
 	}
+	game->Shutdown();
+	game.reset();
 
+	nae::Factory::Instance().Shutdown();
+
+	nae::g_eventManager.Shutdown();
 	nae::g_audioSystem.Shutdown();
 	nae::g_renderer.Shutdown();
-	nae::g_inputSystem.Shutdown();
-	nae::g_physicsSystem.Shutdown();
-
+	//nae::g_inputSystem.Shutdown();
+	//nae::g_physicsSystem.Shutdown();
 }

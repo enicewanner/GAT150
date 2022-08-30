@@ -6,4 +6,5 @@ void nae::ResourceManager::Initialize()
 
 void nae::ResourceManager::Shutodwn()
 {
+	m_resources.clear();
 }

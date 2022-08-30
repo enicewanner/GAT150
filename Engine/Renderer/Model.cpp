@@ -12,7 +12,7 @@ nae::Model::Model(const std::string& filename)
 	m_radius = CalculateRadius();
 }
 
-bool nae::Model::Create(const std::string& filename, void* data)
+bool nae::Model::Create(std::string filename, ...)
 {
 	if (!Load(filename))
 	{

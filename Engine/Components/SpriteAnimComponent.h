@@ -10,8 +10,12 @@ namespace nae
 	class SpriteAnimComponent : public RenderComponent
 	{
 	public:
+		CLASS_DECLARATION(SpriteAnimComponent)
+
 		virtual void Update() override;
 		virtual void Draw(Renderer& renderer) override;
+
+		Rect& GetSource() override;
 
 		virtual bool Write(const rapidjson::Value& value) const override;
 		virtual bool Read(const rapidjson::Value& value) override;

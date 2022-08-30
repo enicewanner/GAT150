@@ -9,19 +9,21 @@ namespace nae
 	public:
 		PhysicsComponent() = default;
 
+		CLASS_DECLARATION(PhysicsComponent)
+
 		void Update() override;
-		void ApplyForce(const Vector2& force) { m_acceleration += force; }
+		virtual void ApplyForce(const Vector2& force) { m_acceleration += force; }
+
+		
+		virtual bool Read(const rapidjson::Value& value) override;
+		virtual bool Write(const rapidjson::Value& value) const override;
+
 
 	public:
 		Vector2 m_velocity;
 		Vector2 m_acceleration;
 
 		float damping = 0.99f;
-
-		// Inherited via Component
-		virtual bool Read(const rapidjson::Value& value) override;
-		virtual bool Write(const rapidjson::Value& value) const override;
-
 	private:
 		
 	};

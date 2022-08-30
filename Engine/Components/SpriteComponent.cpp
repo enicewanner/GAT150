@@ -12,7 +12,7 @@ namespace nae
 
 	void SpriteComponent::Draw(Renderer& renderer)
 	{
-		renderer.Draw(m_texture, m_owner->m_transform);
+		renderer.Draw(m_texture, GetSource(), m_owner->m_transform);
 	}
 
 	bool SpriteComponent::Write(const rapidjson::Value& value) const
@@ -25,7 +25,7 @@ namespace nae
 		std::string texture_name;
 		READ_DATA(value, texture_name);
 
-		m_texture = g_resources.Get<Texture>(texture_name), g_renderer;
+		m_texture = g_resources.Get<Texture>(texture_name, g_renderer);
 
 		if (!READ_DATA(value, source))
 		{

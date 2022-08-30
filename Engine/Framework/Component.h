@@ -7,14 +7,17 @@ namespace nae
 
 	class Component : public GameObject, public ISerializable
 	{
+	friend class Actor;
 	public:
 		Component() = default;
 
+		virtual void Initialize() override {}
 		virtual void Update() = 0;
 
-		friend class Actor;
 
 	protected:
 		Actor* m_owner = nullptr;
+
+
 	};
 }

@@ -6,7 +6,7 @@ namespace nae
 {
 	struct Matrix3x3
 	{
-		Vector3 rows[2]; //[2][2]
+		Vector3 rows[3]; //[2][2]
 
 		Matrix3x3() = default;
 		Matrix3x3(const Vector3& row1, const Vector3& row2, const Vector3& row3);
@@ -26,12 +26,17 @@ namespace nae
 		static Matrix3x3 CreateRotation(float radians);
 		static Matrix3x3 CreateTranslation(const Vector2& translate);
 
+		Vector2 GetTranslation() const;
+		float GetRotation() const;
+		Vector2 GetScale() const;
+
 	};
 
 	inline Matrix3x3::Matrix3x3(const Vector3& row1, const Vector3& row2, const Vector3& row3)
 	{
 		rows[0] = row1;
 		rows[1] = row2;
+		rows[2] = row3;
 	}
 
 	inline Vector2 Matrix3x3::operator*(const Vector2& v) const
@@ -57,9 +62,9 @@ namespace nae
 		result[1][1] = rows[1][0] * mx[0][1] + rows[1][1] * mx[1][1] + rows[1][2] + mx[2][1];
 		result[1][2] = rows[1][0] * mx[0][2] + rows[1][1] * mx[1][2] + rows[1][2] + mx[2][2];
 
-		result[2][0] = rows[2][0] * mx[0][0] + rows[2][1] * mx[1][0] + rows[2][2] + mx[2][0];
-		result[2][1] = rows[2][0] * mx[0][1] + rows[2][1] * mx[1][1] + rows[2][2] + mx[2][1];
-		result[2][2] = rows[2][0] * mx[0][2] + rows[2][1] * mx[1][2] + rows[2][2] + mx[2][2];
+		result[2][0] = rows[2][0] * mx[0][0] + rows[2][1] * mx[1][0] + rows[2][2] * mx[2][0];
+		result[2][1] = rows[2][0] * mx[0][1] + rows[2][1] * mx[1][1] + rows[2][2] * mx[2][1];
+		result[2][2] = rows[2][0] * mx[0][2] + rows[2][1] * mx[1][2] + rows[2][2] * mx[2][2];
 
 
 		return result;
@@ -109,10 +114,36 @@ namespace nae
 		mx[0][2] = translate.x;
 		mx[1][2] = translate.y;
 
-
-
-
 		return mx;
+	}
+
+	inline Vector2 Matrix3x3::GetTranslation() const
+	{
+		// 1 0 x 
+		// 0 1 y 
+		// 0 0 1 
+
+		return { rows[0][2], rows[1][2] };
+	}
+
+	inline float Matrix3x3::GetRotation() const
+	{
+		// cos -sin 0 
+		// sin  cos 0 
+		//  0    0  1 
+
+		// y = sin(angle) = rows[1][0] 
+		// x = cos(angle) = rows[0][0] 
+
+		return std::atan2(rows[1][0], rows[0][0]);
+	}
+
+	inline Vector2 Matrix3x3::GetScale() const
+	{
+		Vector2 x = { rows[0][0], rows[0][1] };
+		Vector2 y = { rows[1][0], rows[1][1] };
+
+		return { x.Length(), y.Length() };
 	}
 
 }

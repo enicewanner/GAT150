@@ -17,7 +17,7 @@ namespace nae
 
 		Model(const std::string& filename);
 
-		bool Create(const std::string& filename, void* data) override;
+		bool Create(std::string filename, ...) override;
 
 		void Draw(Renderer& renderer, const Vector2& position, float angle, const Vector2& scale = { 1, 1 });
 		void Draw(Renderer& renderer, const Transform& transform);

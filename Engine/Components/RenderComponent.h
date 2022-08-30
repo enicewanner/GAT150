@@ -1,5 +1,8 @@
 #pragma once
 #include "Framework/Component.h"
+#include "rapidjson/rapidjson.h"
+#include "Math/Rect.h"
+
 namespace nae
 {
 	class Renderer;
@@ -9,9 +12,10 @@ namespace nae
 	public:
 		virtual void Draw(Renderer& renderer) = 0;
 
-		// Inherited via Component
-		virtual bool Write(const rapidjson::Value& value);
-		virtual bool Read(const rapidjson::Value& value);
-		virtual void Update() override;
+		virtual Rect& GetSource() { return source; }
+		
+	protected:
+		Rect source;
+
 	};
 }

@@ -45,8 +45,8 @@ namespace nae
 		int m_width = 0;
 		int m_height = 0;
 
-		SDL_Renderer* m_renderer{ nullptr };
-		SDL_Window* m_window{ nullptr };
+		SDL_Renderer* m_renderer = nullptr;
+		SDL_Window* m_window = nullptr;
 
 	};
 

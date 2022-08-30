@@ -6,6 +6,9 @@
 
 // !! forward declare the _TTF_Font struct 
 struct _TTF_Font;
+struct SDL_Surface;
+struct SDL_Color;
+struct Color;
 
 namespace nae
 {
@@ -18,7 +21,9 @@ namespace nae
 		Font(const std::string& filename, int fontSize);
 		~Font();
 
-		bool Create(const std::string& filename, void* data) override { return false; }
+		SDL_Surface* CreateSurface(const std::string& text, const Color& color);
+
+		bool Create(std::string filename, ...) override { return false; }
 		void Load(const std::string& filename, int fontSize);
 
 	private:

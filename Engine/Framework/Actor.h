@@ -14,8 +14,12 @@ namespace nae
 	{
 	public:
 		Actor() = default;
+		Actor(const Actor& other);
 		Actor(const Transform& transform) : m_transform{ transform } {}
-		
+
+		CLASS_DECLARATION(Actor)
+
+		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void Draw(Renderer& renderer);
 	
@@ -38,6 +42,14 @@ namespace nae
 		void SetName(const std::string& name) { this->name = name; }
 		const std::string& GetName() { return name; }
 
+		void SetDestroy() { m_destroy = true; }
+		bool IsDestroyed() { return m_destroy; }
+
+		void SetActive(bool active = true) { this->active = active; }
+		bool IsActive() { return active; }
+
+		Scene* GetScene() { return m_scene; }
+
 		virtual bool Write(const rapidjson::Value& value) const override;
 		virtual bool Read(const rapidjson::Value& value) override;
 
@@ -49,9 +61,8 @@ namespace nae
 		std::string name;
 		std::string tag;
 
+		bool active = true;
 		bool m_destroy = false;
-		Vector2 m_velocity;
-		float m_damping = 1;
 
 		Scene* m_scene = nullptr;
 		Actor* m_parent = nullptr;

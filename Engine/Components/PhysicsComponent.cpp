@@ -14,7 +14,7 @@ namespace nae
 
 	bool PhysicsComponent::Write(const rapidjson::Value& value) const
 	{
-		return false;
+		return true;
 	}
 
 	bool PhysicsComponent::Read(const rapidjson::Value& value)
@@ -22,6 +22,7 @@ namespace nae
 		READ_DATA(value, damping);
 		READ_DATA(value, m_velocity);
 		READ_DATA(value, m_acceleration);
+
 
 
 		return true;
