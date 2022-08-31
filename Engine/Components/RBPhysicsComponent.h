@@ -2,23 +2,21 @@
 #include "PhysicsComponent.h"
 #include "Physics/PhysicsSystem.h"
 
-namespace nae
-{
-	class RBPhysicsComponent : public PhysicsComponent
-	{
-	public:
-		RBPhysicsComponent() = default;
-		~RBPhysicsComponent();
+namespace nae {
+	class RBPhysicsComponent : public PhysicsComponent {
+	public :
 
 		CLASS_DECLARATION(RBPhysicsComponent)
+
+		RBPhysicsComponent() = default;
+		~RBPhysicsComponent();
 
 		void Initialize() override;
 		void Update() override;
 		virtual void ApplyForce(const Vector2& force);
 
-
-		virtual bool Read(const rapidjson::Value& value) override;
 		virtual bool Write(const rapidjson::Value& value) const override;
+		virtual bool Read(const rapidjson::Value& value) override;
 
 		friend class CollisionComponent;
 

@@ -1,15 +1,17 @@
 #include "Transform.h"
 
-bool nae::Transform::Write(const rapidjson::Value& value) const
-{
-    return true;
-}
+namespace nae {
 
-bool nae::Transform::Read(const rapidjson::Value& value)
-{
-    READ_DATA(value, position);
-    READ_DATA(value, scale);
-    READ_DATA(value, rotation);
+	bool Transform::Write(const rapidjson::Value& value) const {
+		return true;
+	}
 
-    return true;
+	bool Transform::Read(const rapidjson::Value& value) {
+
+		READ_DATA(value, position);
+		READ_DATA(value, scale);
+		READ_DATA(value, rotation);
+
+		return true;
+	}
 }

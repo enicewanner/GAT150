@@ -1,11 +1,13 @@
 #pragma once
 
-namespace nae
-{
+namespace nae {
+
 	class Actor;
-	class ICollision
-	{
+	class ICollision {
+
+	public:
 		virtual void OnCollisionEnter(Actor* other) = 0;
 		virtual void OnCollisionExit(Actor* other) = 0;
+
 	};
 }

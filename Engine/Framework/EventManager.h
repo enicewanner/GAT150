@@ -3,27 +3,22 @@
 #include <map>
 #include <list>
 
-
-namespace nae
-{
-	class EventManager
-	{
+namespace nae {
+	class EventManager {
 	public:
-		struct Observer
-		{
-			GameObject* receiver;
+		struct Observer {
+			GameObject* receiver = nullptr;
 			Event::functionPtr function;
 		};
 
-	public:
 		void Initialize();
 		void Shutdown();
 		void Update();
 
-		void Subscribe(std::string& name, Event::functionPtr function, GameObject* receiever = nullptr);
-		void Unsubscribe(std::string& name, GameObject* receiver);
+		void Subscribe(const std::string& name, Event::functionPtr function, GameObject* receiver = nullptr);
+		void Unsubscribe(const std::string& name, GameObject* receiver);
 
-		void Notify(const Event& _event);
+		void Notify(const Event& event);
 
 	private:
 		std::map<std::string, std::list<Observer>> m_events;

@@ -1,24 +1,22 @@
-#pragma once 
+#pragma once
+
 #include "RenderComponent.h" 
 #include "Math/Color.h" 
 #include "Math/Vector2.h" 
 #include <memory> 
-
 
 namespace nae
 {
 	class Font;
 	class Texture;
 
-	class TextComponent : public RenderComponent // !! derive from RenderComponent  
+	class TextComponent : public RenderComponent
 	{
 	public:
-		
 		CLASS_DECLARATION(TextComponent)
-		
+
 		virtual void Update() override;
 		virtual void Draw(Renderer& renderer) override;
-
 
 		void SetText(const std::string& text);
 
@@ -34,5 +32,8 @@ namespace nae
 
 		std::shared_ptr<Font> m_font;
 		std::shared_ptr<Texture> m_texture;
+
 	};
+
 }
+

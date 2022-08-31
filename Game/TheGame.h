@@ -1,35 +1,38 @@
 #pragma once
-#include "Framework/Game.h"
 
-class TheGame : public nae::Game
-{
+#include "Framework/Game.h"
+#include "Framework/Event.h"
+#include "rapidjson/rapidjson.h"
+
+class TheGame : public nae::Game, public nae::INotify{
+
 public:
-	enum class gameState
-	{
+	enum class gameState {
+
 		titleScreen,
 		startLevel,
-		game,
-		playerDead,
+		game, 
+		playerDead, 
 		gameOver
-
 
 
 	};
 
-public:
-	// Inherited via Game
 	virtual void Initialize() override;
 	virtual void Shutdown() override;
 	virtual void Update() override;
 	virtual void Draw(nae::Renderer& renderer) override;
 
-	void OnAddPoints(const nae::Event& _event);
-	void OnPlayerDead(const nae::Event& _event);
+	void OnAddPoints(const nae::Event& event);
+	void OnPlayerDead(const nae::Event& event);
 
-private:
 	gameState m_gameState = gameState::titleScreen;
-
-	float m_stateTimer = 0;
+	float m_startTimer = 0;
 	int m_lives = 3;
+
+
+	// Inherited via INotify
+	virtual void OnNotify(const nae::Event& event) override;
+
 
 };

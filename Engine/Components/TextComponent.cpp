@@ -1,8 +1,6 @@
 #include "TextComponent.h" 
 #include "Engine.h" 
 
-
-
 namespace nae
 {
 	void TextComponent::Update()
@@ -17,7 +15,7 @@ namespace nae
 	void TextComponent::SetText(const std::string& text)
 	{
 		// create a texture from a surface generated in the font class 
-		//m_texture->CreateFromSurface(m_font -> CreateSurface(text, color), g_renderer);
+		m_texture->CreateFromSurface(m_font -> CreateSurface(text, color), g_renderer);
 	}
 
 	bool TextComponent::Write(const rapidjson::Value& value) const
@@ -27,8 +25,6 @@ namespace nae
 
 	bool TextComponent::Read(const rapidjson::Value& value)
 	{
-
-		// !! READ_DATA  
 		READ_DATA(value, text);
 		READ_DATA(value, font_name);
 		READ_DATA(value, font_size);

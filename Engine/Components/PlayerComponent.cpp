@@ -2,104 +2,109 @@
 #include "Engine.h"
 #include <iostream>
 
-namespace nae
-{
-	void PlayerComponent::Initialize()
-	{
-		auto component = m_owner->GetComponent<CollisionComponent>();
-		if (component)
-		{
-			component->SetCollisionEnter(std::bind(&PlayerComponent::OnCollisionEnter, this, std::placeholders::_1));
-			component->SetCollisionExit(std::bind(&PlayerComponent::OnCollisionExit, this, std::placeholders::_1));
-		}
+void nae::PlayerComponent::Initialize(){
+	
+	CharacterComponent::Initialize();
+
+	
+}
+
+void nae::PlayerComponent::Update(){
+	Vector2 direction = Vector2::zero;
+	
+	if (g_inputSystem.GetKeyState(key_a) == InputSystem::State::Held){
+
+		direction = Vector2::left;
 	}
 
-	void PlayerComponent::Update()
-	{
+	if (g_inputSystem.GetKeyState(key_d) == InputSystem::State::Held){
+		direction = Vector2::right;
+	}
 
-		Vector2 direction = Vector2::zero;
-		if (g_inputSystem.GetKeyState(key_down) == InputSystem::State::Held)
-		{
-			//direction = Vector2::down;
-		}
+	float  thrust = 0;
+	if (g_inputSystem.GetKeyState(key_w) == InputSystem::State::Held){
 
-		float thrust = 0;
-		if (g_inputSystem.GetKeyState(key_up) == InputSystem::State::Held)
-		{
-			thrust = 500;
-		}
+		thrust = speed;
+	}
 
+	Vector2 velocity;
+	auto component = m_owner->GetComponent<PhysicsComponent>();
+	if (component){
+		
+		component->ApplyForce(direction * speed);
+		velocity = component->velocity;
 
+	}
 
-		if (g_inputSystem.GetKeyState(key_left) == InputSystem::State::Held)
-		{
-			//m_owner->m_transform.rotation -= 90 * g_time.deltaTime;
-			direction = Vector2::left;
-		}
-		if (g_inputSystem.GetKeyState(key_right) == InputSystem::State::Held)
-		{
-			//m_owner->m_transform.rotation += 90 * g_time.deltaTime;
-			direction = Vector2::right;
-		}
+	m_owner->m_transform.position += direction * 300 * g_time.deltaTime;
+
+	if (g_inputSystem.GetKeyState(key_space) == InputSystem::State::Press){
 
 		auto component = m_owner->GetComponent<PhysicsComponent>();
-		if (component)
-		{
-
-			//Vector2 force = Vector2::Rotate({ 1, 0 }, Math::DegToRad(m_owner->m_transform.rotation)) * thrust;
-
-			component->ApplyForce(direction * speed);
-
-			//gravitational force
-			/*force = (Vector2{ 400,400 } - m_owner->m_transform.position).Normalized() * 100.0f;
-			component->ApplyForce(force);*/
-		}
-
-		
-		//jump
-		if (g_inputSystem.GetKeyState(key_space) == InputSystem::State::Pressed)
-		{
-			if (component)
-			{
-				component->ApplyForce(Vector2::up * 20);
-
-			}
+		if (component) {
+			Vector2 force = Vector2::Rotate({ 1, 0 }, nae::DegToRad(m_owner->m_transform.rotation)) * thrust;
+			component->ApplyForce(Vector2::up * 200);
 
 		}
 	}
 
-	bool PlayerComponent::Write(const rapidjson::Value& value) const
-	{
-		return false;
+	auto renderComponent = m_owner->GetComponent<RenderComponent>();
+	if (renderComponent){
+		if (velocity.x != 0) renderComponent->SetFlipHorizontal(velocity.x < 0);
 	}
+}
 
-	bool PlayerComponent::Read(const rapidjson::Value& value)
-	{
-		READ_DATA(value, speed);
+bool nae::PlayerComponent::Write(const rapidjson::Value& value) const{
 
-		return true;
-	}
+	return true;
+}
 
-	void PlayerComponent::OnCollisionEnter(Actor* other)
-	{
-		if (other->GetName() == "Coin")
-		{
-			Event _event;
-			_event.name = "EVENT_ADD_POINTS";
-			_event.data = 100;
+bool nae::PlayerComponent::Read(const rapidjson::Value& value){
 
-			g_eventManager.Notify(_event);
-			other->SetDestroy();
+	CharacterComponent::Read(value);
+	READ_DATA(value, jump);
+
+	return true;
+}
+
+void nae::PlayerComponent::OnNotify(const Event& event){
+
+	if (event.name == "EVENT_DAMAGE") {
+		health -= std::get<float>(event.data);
+		std::cout << health << std::endl;
+		if (health <= 0) {
+			//Player dead
 		}
+	}
+}
 
-		std::cout << "Player enter\n";
+void nae::PlayerComponent::OnCollisionEnter(Actor* other){
+
+	if (other->GetName() == "Coin") {
+
+		Event event;
+		event.name = "EVENT_ADD_POINTS";
+		event.data = 100;
+
+		g_eventManager.Notify(event);
+
+		other->SetDestroy();
 	}
 
-	void PlayerComponent::OnCollisionExit(Actor* other)
-	{
-		std::cout << "Player exit\n";
+	if (other->GetTag() == "Enemy") {
+
+		Event event;
+		event.name = "EVENT_DAMAGE";
+		event.data = damage;
+		event.receiver = other;
+
+		g_eventManager.Notify(event);
+
+		other->SetDestroy();
+
 	}
+}
 
-
+void nae::PlayerComponent::OnCollisionExit(Actor* other){
 
 }

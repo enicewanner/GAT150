@@ -1,7 +1,7 @@
 #include "MathUtils.h"
 
-namespace Math
-{ 
+namespace nae
+{
 	int sqr(int v)
 	{
 		return v * v;

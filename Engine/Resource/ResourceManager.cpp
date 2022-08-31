@@ -1,10 +1,11 @@
 #include "ResourceManager.h"
 
-void nae::ResourceManager::Initialize()
-{
-}
+namespace nae{
+	void ResourceManager::Initialize(){
 
-void nae::ResourceManager::Shutodwn()
-{
-	m_resources.clear();
+	}
+
+	void ResourceManager::Shutdown(){
+		m_resources.clear();
+	}
 }

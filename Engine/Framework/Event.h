@@ -3,18 +3,21 @@
 #include <variant>
 #include <functional>
 
-namespace nae
-{
-	class GameObject;
+namespace nae {
 
-	class Event
-	{
+	class GameObject;
+	class Event {
 	public:
 		using functionPtr = std::function<void(const Event&)>;
-	public:
+
 		std::string name;
-		GameObject* receiever = nullptr;
+		GameObject* receiver = nullptr;
 		std::variant<int, bool, float, std::string> data;
 
+	};
+
+	class INotify {
+	public:
+		virtual void OnNotify(const Event& event) = 0;
 	};
 }

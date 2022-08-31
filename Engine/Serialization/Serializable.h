@@ -1,10 +1,8 @@
 #pragma once
-#include "Json.h"
+#include "json.h"
 
-namespace nae
-{
-	class ISerializable
-	{
+namespace nae {
+	class ISerializable {
 	public:
 		virtual ~ISerializable() {};
 

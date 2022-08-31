@@ -1,43 +1,38 @@
 #include "EventManager.h"
 
-namespace nae
-{
+namespace nae {
 
-	void EventManager::Initialize()
-	{
+	void EventManager::Initialize() {
+
 	}
 
-	void EventManager::Shutdown()
-	{
+	void EventManager::Shutdown(){
+
 	}
 
-	void EventManager::Update()
-	{
+	void EventManager::Update(){
+
 	}
 
-	void EventManager::Subscribe(std::string& name, Event::functionPtr function, GameObject* receiever)
-	{
+	void EventManager::Subscribe(const std::string& name, Event::functionPtr function, GameObject* receiver){
 		Observer observer;
-		observer.receiver = receiever;
+		observer.receiver = receiver;
 		observer.function = function;
 
 		m_events[name].push_back(observer);
 	}
 
-	void EventManager::Unsubscribe(std::string& name, GameObject* receiver)
-	{
+	void EventManager::Unsubscribe(const std::string& name, GameObject* receiver){
+
 	}
 
-	void EventManager::Notify(const Event& _event)
-	{
-		auto& observers = m_events[_event.name];
-		for (auto& observer : observers)
-		{
-			if (_event.receiever == nullptr || _event.receiever == observer.receiver)
-			{
-				observer.function(_event);
+	void EventManager::Notify(const Event& event){
+
+		auto& observers = m_events[event.name];
+		for (auto& observer : observers){
+			if (event.receiver == nullptr || event.receiver == observer.receiver){
+				observer.function(event);
 			}
 		}
-
 	}
 }

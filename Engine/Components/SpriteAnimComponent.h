@@ -2,25 +2,22 @@
 #include "RenderComponent.h"
 #include "Math/Rect.h"
 
-
-namespace nae
-{
+namespace nae {
 	class Texture;
+	class SpriteAnimComponent : public RenderComponent {
 
-	class SpriteAnimComponent : public RenderComponent
-	{
 	public:
-		CLASS_DECLARATION(SpriteAnimComponent)
 
+		CLASS_DECLARATION(SpriteAnimComponent)
 		virtual void Update() override;
 		virtual void Draw(Renderer& renderer) override;
 
-		Rect& GetSource() override;
-
+		// Inherited via RenderComponent
 		virtual bool Write(const rapidjson::Value& value) const override;
 		virtual bool Read(const rapidjson::Value& value) override;
 
-	public:
+		Rect& GetSource() override;
+
 		float fps = 0;
 		int num_columns = 0;
 		int num_rows = 0;
@@ -31,7 +28,6 @@ namespace nae
 		int frame = 0;
 		float frameTimer = 0;
 
-		Rect source;
 		std::shared_ptr<Texture> m_texture;
 
 	};

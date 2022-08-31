@@ -1,27 +1,23 @@
-#pragma once 
+#pragma once
 
-namespace FMOD
-{
-	// !! forward declare FMOD Channel 
+namespace FMOD{
 	class Channel;
+	
 }
 
-namespace nae
-{
-	class AudioChannel
-	{
+namespace nae{
+
+	class AudioChannel{
 	public:
-		AudioChannel() = default;
-		AudioChannel(FMOD::Channel* channel) : m_channel{ channel } {} // !! set m_channel 
+		AudioChannel() {}
+		AudioChannel(FMOD::Channel* channel){ m_channel = channel; }  
 
 		bool IsPlaying();
 		void Stop();
 
-		// !! create SetPitch/GetPitch (takes float, returns float) 
 		void SetPitch(float pitch);
 		float GetPitch();
 
-		// !! create SetVolume/GetVolume (takes float, returns float) 
 		void SetVolume(float volume);
 		float GetVolume();
 

@@ -1,13 +1,12 @@
 #pragma once
+
 #include "RenderComponent.h"
 #include "Math/Rect.h"
 #include "Math/Vector2.h"
 #include <vector>
 
-namespace nae
-{
-	class TilemapComponent : public Component
-	{
+namespace nae{
+	class TilemapComponent : public Component{
 	public:
 		CLASS_DECLARATION(TilemapComponent)
 

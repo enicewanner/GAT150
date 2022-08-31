@@ -1,53 +1,52 @@
 #pragma once
+
 #include "Singleton.h"
 #include "Core/Logger.h"
+#include <iostream>
 #include <memory>
 #include <map>
-#include <string>
 
-namespace nae
-{
+namespace nae {
+
 	class GameObject;
 
-	class CreatorBase
-	{
+	class CreatorBase {
+
 	public:
-		~CreatorBase() = default;
+		virtual ~CreatorBase() = default;
 
 		virtual std::unique_ptr<GameObject> Create() = 0;
+
 	};
 
-
 	template <typename T>
-	class Creator : public CreatorBase
-	{
-		std::unique_ptr<GameObject> Create() override
-		{
+	class Creator : public CreatorBase {
+		public:
+		std::unique_ptr<GameObject> Create() {
+			
 			return std::make_unique<T>();
-		}
 
+		}
 	};
 
-
 	template <typename T>
-	class PrefabCreator : public CreatorBase
-	{
+	class PrefabCreator : public CreatorBase {
 	public:
 		~PrefabCreator() = default;
 
-		PrefabCreator(std::unique_ptr<T> instance) : m_instance{ std::move(instance) } {}
-		std::unique_ptr<GameObject> Create() override
-		{
+		PrefabCreator(std::unique_ptr<T>instance) : m_instance{std::move(instance)}{}
+		std::unique_ptr<GameObject> Create() override{
+
 			return m_instance->Clone();
+
 		}
 
 	private:
 		std::unique_ptr<T> m_instance;
-
 	};
 
-	class Factory : public Singleton<Factory>
-	{
+	class Factory : public Singleton<Factory>{
+
 	public:
 		void Shutdown() { m_registry.clear(); }
 
@@ -59,29 +58,25 @@ namespace nae
 
 		template <typename T>
 		std::unique_ptr<T> Create(const std::string& key);
+
 	private:
 		std::map<std::string, std::unique_ptr<CreatorBase>> m_registry;
 	};
 
 	template<typename T>
-	inline void Factory::Register(const std::string& key)
-	{
+	inline void Factory::Register(const std::string& key){
 		m_registry[key] = std::make_unique<Creator<T>>();
-
 	}
 
 	template<typename T>
-	inline void Factory::RegisterPrefab(const std::string& key, std::unique_ptr<T> instance)
-	{
+	inline void Factory::RegisterPrefab(const std::string& key, std::unique_ptr<T> instance){
 		m_registry[key] = std::make_unique<PrefabCreator<T>>(std::move(instance));
 	}
 
 	template<typename T>
-	inline std::unique_ptr<T> Factory::Create(const std::string& key)
-	{
+	inline std::unique_ptr<T> Factory::Create(const std::string& key){
 		auto iter = m_registry.find(key);
-		if (iter != m_registry.end())
-		{
+		if (iter != m_registry.end()){
 			return std::unique_ptr<T>(dynamic_cast<T*>(iter->second->Create().release()));
 		}
 

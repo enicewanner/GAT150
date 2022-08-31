@@ -13,16 +13,25 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\GameComponents">
+      <UniqueIdentifier>{c3286437-d066-472e-ab67-70e7e780f458}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameComponents\EnemyComponent.cpp">
+      <Filter>Source Files\GameComponents</Filter>
     </ClCompile>
     <ClCompile Include="TheGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameComponents\EnemyComponent.h">
+      <Filter>Source Files\GameComponents</Filter>
+    </ClInclude>
     <ClInclude Include="TheGame.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -34,16 +43,16 @@
     <Text Include="..\Build\Assets\prefabs.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="..\Build\Assets\Player.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="..\Build\Assets\Missle.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="..\Build\Assets\level.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="..\Build\Assets\Enemy.txt">
+    <Text Include="..\Build\Assets\prefabs2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="..\Build\Assets\Tilemap2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="..\Build\Assets\level2.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

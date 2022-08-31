@@ -90,8 +90,8 @@
       {
          "type":"Actor",
          "name":"Player",
+         "prefab":true, 
          "tag":"Player",
-         "prefab":true,
          "transform":{
             "position":[
                400,
@@ -106,7 +106,7 @@
          "components":[
             {
                "type":"PlayerComponent",
-               "speed":40
+               "jump":40
             },
             {
                "type":"RBPhysicsComponent",
@@ -115,8 +115,8 @@
                "data.constrain_angle":true
             },
             {
-               "type":"CollisionComponent",
-               "data.size": [48, 48]
+               "type":"CollisionComponent"
+               
             },
             {
                "type":"SpriteAnimComponent",

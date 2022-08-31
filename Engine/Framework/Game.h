@@ -1,13 +1,11 @@
 #pragma once
 #include <memory>
 
-namespace nae
-{
+namespace nae{
 	class Renderer;
 	class Scene;
 
-	class Game
-	{
+	class Game{
 	public:
 		Game() = default;
 		virtual ~Game() = default;
@@ -18,12 +16,11 @@ namespace nae
 		virtual void Update() = 0;
 		virtual void Draw(Renderer& renderer) = 0;
 
-		int GetScore() { return m_score; }
-		int AddScore(int points) { return m_score += points; }
+		float GetScore() { return m_score; }
+		void AddPoints(int points) { m_score += points; }
 
 	protected:
 		std::unique_ptr<Scene> m_scene;
-		int m_score = 0;
-
+		float m_score = 0.0f;
 	};
 }

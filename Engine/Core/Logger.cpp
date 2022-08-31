@@ -5,9 +5,9 @@
 namespace nae
 {
 	Logger g_logger;
-
-	void Logger::log(const char* format, ...)
+	void Logger::Log(const char* format, ...)
 	{
+
 		va_list args;
 		va_start(args, format);
 
@@ -18,5 +18,4 @@ namespace nae
 
 		va_end(args);
 	}
-
 }
