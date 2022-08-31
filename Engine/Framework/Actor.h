@@ -61,6 +61,8 @@ namespace nae{
 		bool active = true;
 		bool m_destroy = false;
 
+		float lifespan = 0;
+
 		Scene* m_scene = nullptr;
 		Actor* m_parent = nullptr;
 		std::vector<std::unique_ptr<Component>> m_components;
