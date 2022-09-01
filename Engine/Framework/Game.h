@@ -16,7 +16,7 @@ namespace nae{
 		virtual void Update() = 0;
 		virtual void Draw(Renderer& renderer) = 0;
 
-		float GetScore() { return m_score; }
+		int GetScore() { return (int)m_score; }
 		void AddPoints(int points) { m_score += points; }
 
 	protected:

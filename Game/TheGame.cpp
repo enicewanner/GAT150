@@ -72,7 +72,7 @@ void TheGame::Update(){
 
 		if (timecomponent)
 		{
-			timecomponent->SetText(std::to_string(m_gameTimer));
+			timecomponent->SetText(std::to_string((int)(m_gameTimer)));
 		}
 
 		if (m_gameTimer <= 0)
@@ -156,11 +156,12 @@ void TheGame::OnNotify(const nae::Event& event){
 
 	if (event.name == "EVENT_ADD_POINTS") {
 		AddPoints(std::get<int>(event.data)); 
+		//std::setprecision(1);
 		auto score = m_scene->GetActorFromName("Score");
 		auto component = score->GetComponent<nae::TextComponent>();
 		if (component)
 		{
-			component->SetText(std::to_string((m_score)));
+			component->SetText(std::to_string((GetScore())));
 		}
 		std::cout << GetScore() << std::endl;
 
