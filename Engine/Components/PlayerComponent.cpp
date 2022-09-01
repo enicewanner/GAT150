@@ -89,6 +89,11 @@ void nae::PlayerComponent::OnNotify(const Event& event){
 		std::cout << health << std::endl;
 		if (health <= 0) {
 			//Player dead
+			Event event;
+			event.name = "EVENT_PLAYER_DEAD";
+			event.data = 1;
+
+			g_eventManager.Notify(event);
 		}
 	}
 }
@@ -120,7 +125,7 @@ void nae::PlayerComponent::OnCollisionEnter(Actor* other){
 
 		g_eventManager.Notify(event);
 
-		other->SetDestroy();
+		//other->SetDestroy();
 
 	}
 }

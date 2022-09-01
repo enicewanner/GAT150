@@ -40,11 +40,15 @@ void EnemyComponent::OnNotify(const nae::Event& event)
 {
     if (event.name == "EVENT_DAMAGE")
     {
-        health -= std::get<float>(event.data);
+ /*       health -= std::get<float>(event.data);
         if (health <= 0)
         {
             m_owner->SetDestroy();
-        }
+        }*/
+    }
+    if (event.name == "EVENT_PLAYER_DEAD")
+    {
+        m_owner->SetDestroy();
     }
 
 }

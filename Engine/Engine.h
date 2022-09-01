@@ -44,6 +44,7 @@
 #include <memory>
 #include <variant>
 
+
 namespace nae {
 	extern Renderer g_renderer;
 	extern InputSystem g_inputSystem;

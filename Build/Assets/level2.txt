@@ -113,6 +113,105 @@
       },
       {
          "type":"Actor",
+         "name":"GameOver",
+         "transform":{
+            "position":[
+               300,
+               300
+            ],
+            "scale":[
+               1,
+               1
+            ],
+            "rotation":0
+         },
+         "components":[
+            {
+               "type":"TextComponent",
+               "text":"GAME OVER",
+               "font_name":"QuirkyRobot.ttf",
+               "font_size":64,
+               "registration":[
+                  0.0,
+                  0.5
+               ],
+               "color":[
+                  255,
+                  0,
+                  0,
+                  255
+               ]
+            }
+         ]
+      },
+      {
+         "type":"Actor",
+         "name":"Score",
+         "transform":{
+            "position":[
+               500,
+               30
+            ],
+            "scale":[
+               2,
+               2
+            ],
+            "rotation":0
+         },
+         "components":[
+            {
+               "type":"TextComponent",
+               "text":"000",
+               "font_name":"QuirkyRobot.ttf",
+               "font_size":32,
+               "registration":[
+                  0.0,
+                  0.5
+               ],
+               "color":[
+                  255,
+                  0,
+                  0,
+                  255
+               ]
+            }
+         ]
+      },
+            {
+         "type":"Actor",
+         "name":"Time",
+         "transform":{
+            "position":[
+               250,
+               30
+            ],
+            "scale":[
+               2,
+               2
+            ],
+            "rotation":0
+         },
+         "components":[
+            {
+               "type":"TextComponent",
+               "text":" ",
+               "font_name":"QuirkyRobot.ttf",
+               "font_size":32,
+               "registration":[
+                  0.0,
+                  0.5
+               ],
+               "color":[
+                  255,
+                  0,
+                  0,
+                  255
+               ]
+            }
+         ]
+      },
+      {
+         "type":"Actor",
          "name":"Camera",
          "transform":{
             "position":[
@@ -154,7 +253,7 @@
             {
                "type":"PlayerComponent",
                "speed":20,
-               "jump":1000
+               "jump":600
             },
             {
                "type":"RBPhysicsComponent",

@@ -28,6 +28,9 @@ public:
 
 	gameState m_gameState = gameState::titleScreen;
 	float m_startTimer = 0;
+	float m_spawnTimerE = 5;
+	float m_spawnTimerC = 5;
+	float m_gameTimer = 60;
 	int m_lives = 3;
 
 

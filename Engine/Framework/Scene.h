@@ -75,7 +75,7 @@ namespace nae{
 		for (auto& actor : m_actors) {
 			if (actor->GetTag() == tag) {
 				T* TagActor = dynamic_cast<T*>(actor.get());
-				if (TagActor) result.push_back(actor);
+				if (TagActor) result.push_back(TagActor);
 			}
 		}
 		return result;

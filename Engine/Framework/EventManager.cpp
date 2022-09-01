@@ -23,7 +23,18 @@ namespace nae {
 	}
 
 	void EventManager::Unsubscribe(const std::string& name, GameObject* receiver){
+		// get list of observers for event
+		auto& observers = m_events[name];
 
+		// remove observer with matching receiver from observers
+		for (auto iter = observers.begin(); iter != observers.end(); iter++)
+		{
+			if (iter->receiver == receiver)
+			{
+				observers.erase(iter);
+				break;
+			}
+		}
 	}
 
 	void EventManager::Notify(const Event& event){
