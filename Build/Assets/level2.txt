@@ -23,6 +23,7 @@
       },
       {
          "type":"Actor",
+         "tag":"Ground",
          "name":"Floor",
          "transform":{
             "position":[

@@ -44,7 +44,7 @@ void nae::PlayerComponent::Update(){
 
 	m_owner->m_transform.position += direction * 300 * g_time.deltaTime;
 
-	if (g_inputSystem.GetKeyState(key_space) == InputSystem::State::Press){
+	if (m_groundCount > 0 && g_inputSystem.GetKeyState(key_space) == InputSystem::State::Press){
 
 		auto component = m_owner->GetComponent<PhysicsComponent>();
 		if (component) {
@@ -95,6 +95,11 @@ void nae::PlayerComponent::OnNotify(const Event& event){
 
 void nae::PlayerComponent::OnCollisionEnter(Actor* other){
 
+	if (other->GetTag() == "Ground")
+	{
+		m_groundCount++;
+	}
+
 	if (other->GetName() == "Coin") {
 
 		Event event;
@@ -121,5 +126,8 @@ void nae::PlayerComponent::OnCollisionEnter(Actor* other){
 }
 
 void nae::PlayerComponent::OnCollisionExit(Actor* other){
-
+	if (other->GetTag() == "Ground")
+	{
+		m_groundCount--;
+	}
 }

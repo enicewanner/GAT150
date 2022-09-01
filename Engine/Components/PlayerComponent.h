@@ -20,6 +20,7 @@ namespace nae{
 		virtual bool Write(const rapidjson::Value& value) const override;
 		virtual bool Read(const rapidjson::Value& value) override;
 
-		float jump =3000;
+		float jump =300;
+		int m_groundCount = 0;
 	};
 }
