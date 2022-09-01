@@ -96,7 +96,7 @@ namespace nae {
 		READ_DATA(value, active);
 		READ_DATA(value, lifespan);
 
-		if (value.HasMember("m_transform")) (m_transform.Read(value["transform"]));
+		if (value.HasMember("transform")) (m_transform.Read(value["transform"]));
 
 		if (value.HasMember("components") && value["components"].IsArray()) {
 			for (auto& componentValue : value["components"].GetArray()) {

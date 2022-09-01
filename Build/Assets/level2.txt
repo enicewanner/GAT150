@@ -5,12 +5,12 @@
             "name":"Background",
             "transform":{
                 "position":[
-                    400,
-                    300
+                    0,
+                    -100
                 ],
                 "scale":[
-                    1,
-                    1
+                    3,
+                    3
                 ],
                 "rotation":0
             },
@@ -46,27 +46,6 @@
                         800,
                         24
                     ]
-                }
-            ]
-        },
-        {
-            "type":"Actor",
-            "name":"Background",
-            "transform":{
-                "position":[
-                    400,
-                    300
-                ],
-                "scale":[
-                    1,
-                    1
-                ],
-                "rotation":0
-            },
-            "components":[
-                {
-                    "type":"SpriteComponent",
-                    "texture_name":"background.png"
                 }
             ]
         },
@@ -103,8 +82,8 @@
             "name":"Title",
             "transform":{
                 "position":[
-                    40,
-                    30
+                    10,
+                    10
                 ],
                 "scale":[
                     1,
@@ -124,13 +103,34 @@
                     ],
                     "color":[
                         255,
-                        255,
+                        0,
                         0,
                         255
                     ]
                 }
             ]
         },
+        { 
+     "type":"Actor", 
+     "name":"Camera", 
+     "transform":{ 
+         "position":[ 
+             400, 
+             300 
+         ], 
+         "scale":[ 
+             1, 
+             1 
+         ], 
+         "rotation":0 
+     }, 
+     "components":[ 
+         { 
+             "type":"CameraComponent", 
+             "viewport_size": [800, 600] 
+         } 
+     ] 
+ }, 
         {
             "type":"Actor",
             "name":"Player",

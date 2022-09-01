@@ -1,6 +1,7 @@
 #pragma once
-#include "../Math/Vector2.h"
-#include "../Math/Color.h"
+#include "Math/Vector2.h"
+#include "Math/Color.h"
+#include "Math/Matrix3x3.h"
 #include "Texture.h"
 
 struct SDL_Renderer;
@@ -33,10 +34,16 @@ namespace nae{
 		int GetWidth() { return m_width; }
 		int GetHeight() { return m_height; }
 
+		void SetViewMatrix(const Matrix3x3& view) { m_view = view; }
+		void SetViewportMatrix(const Matrix3x3& viewport) { m_viewport = viewport; }
+
 	private:
-		int  m_width = 0;
-		int  m_height = 0;
+		int m_width = 0;
+		int m_height = 0;
 		Color m_clearColor{ 0, 0, 0, 255 };
+
+		Matrix3x3 m_view;
+		Matrix3x3 m_viewport;
 
 		SDL_Renderer* m_renderer = nullptr;
 		SDL_Window* m_window = nullptr;

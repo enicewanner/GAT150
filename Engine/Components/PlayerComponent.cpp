@@ -12,6 +12,12 @@ void nae::PlayerComponent::Initialize(){
 void nae::PlayerComponent::Update(){
 	Vector2 direction = Vector2::zero;
 	
+	auto camera = m_owner->GetScene()->GetActorFromName("Camera");
+	if (camera)
+	{
+		camera->m_transform.position = nae::Lerp(camera -> m_transform.position, m_owner->m_transform.position, 2 * g_time.deltaTime);
+	}
+
 	if (g_inputSystem.GetKeyState(key_a) == InputSystem::State::Held){
 
 		direction = Vector2::left;
@@ -43,7 +49,7 @@ void nae::PlayerComponent::Update(){
 		auto component = m_owner->GetComponent<PhysicsComponent>();
 		if (component) {
 			Vector2 force = Vector2::Rotate({ 1, 0 }, nae::DegToRad(m_owner->m_transform.rotation)) * thrust;
-			component->ApplyForce(Vector2::up * 200);
+			component->ApplyForce(Vector2::up * jump);
 
 		}
 	}
