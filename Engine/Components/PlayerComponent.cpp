@@ -54,9 +54,18 @@ void nae::PlayerComponent::Update(){
 		}
 	}
 
-	auto renderComponent = m_owner->GetComponent<RenderComponent>();
-	if (renderComponent){
-		if (velocity.x != 0) renderComponent->SetFlipHorizontal(velocity.x < 0);
+	auto animComponent = m_owner->GetComponent<SpriteAnimComponent>();
+	if (animComponent)
+	{
+		if (velocity.x != 0) animComponent->SetFlipHorizontal(velocity.x < 0);
+		if (std::fabs(velocity.x) > 0)
+		{
+			animComponent->SetSequence("run");
+		}
+		else
+		{
+			animComponent->SetSequence("idle");
+		}
 	}
 }
 
